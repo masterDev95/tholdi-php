@@ -1,0 +1,12 @@
+#panier
+{
+    width: 256px;
+    background-color: rgb(163, 163, 163);
+    justify-content: space-between;
+}
+
+#panier ul li
+{
+    display: flex;
+}
+
