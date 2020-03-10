@@ -3,7 +3,7 @@ function gestionnaireDeConnexion() {
     $pdo = null;
     try {
         $pdo = new PDO(
-                'mysql:host=localhost;port=3308;dbname=tholdi', 'root', 'root', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
+            'mysql:host=localhost;port=3308;dbname=tholdi', 'root', 'root', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
         );
     } catch (PDOException $err) {
         $messageErreur = $err->getMessage();
@@ -40,6 +40,22 @@ function listeTypesContainer() {
     }
     
     return $lesTypesContainer;
+}
+
+// --LISTE DES RESERVATION
+function listeReservation() {
+    $lesReservation = array();
+    $pdo = gestionnaireDeConnexion();
+
+    if ($pdo != NULL) {
+        $req = "SELECT *
+                FROM RESERVATION
+                ORDER BY codeReservation";
+        $pdoStatement = $pdo->query($req);
+        $lesReservation = $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    return $lesReservation;
 }
 
 // --RECAPITULATIF DE LA RESERVATION
@@ -170,4 +186,18 @@ function verification($user, $mdp) {
     return $compteExistant;
 }
 
+function jointure($valeur, $table, $selCol, $whereCol) {
+    $resultat = array();
+    $pdo = gestionnaireDeConnexion();
+
+    if ($pdo != NULL) {
+        $sql = "SELECT *
+                FROM $table
+                WHERE $whereCol = $valeur";
+        $pdoStatement = $pdo->query($sql);
+        $resultat = $pdoStatement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    return $resultat;
+}
 ?>

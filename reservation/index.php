@@ -51,7 +51,9 @@ include_once '../_gestionBase.inc.php';
                     $listeVilles = listeVilles();
                     foreach ($listeVilles as $ville):
                 ?>
-                <option value="<?php echo $ville['codeVille'] ?>"><?php echo $ville['nomVille'] ?></option>
+                <option value="<?php echo $ville['codeVille'] ?>">
+                    <?php echo $ville['nomVille'] ?>
+                </option>
                 <?php endforeach; ?>
             </select><br>
 
